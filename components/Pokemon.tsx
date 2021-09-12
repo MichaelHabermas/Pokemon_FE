@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Image, ImageBackground } from 'react-native';
-import { useKeyboard } from '@react-native-community/hooks';
+
 
 
 export default function Pokemon() {
     const [text, setText] = useState('')
     const [pokemon, setPokemon] = useState({})
-
-    const keyboard = useKeyboard()
+    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
         axios.get(`https://pokeapi.co/api/v2/pokemon/pikachu`)
@@ -20,7 +19,6 @@ export default function Pokemon() {
             })
     }, [])
 
-    console.log('keyboard', !keyboard.keyboardShown)
     const fetchPokemon = () => {
         axios.get(`https://pokeapi.co/api/v2/pokemon/${text}`)
             .then(res => {
@@ -33,15 +31,13 @@ export default function Pokemon() {
                 setText('')
             })
     }
-    // console.log('currPokemon=', pokemon)
-    // console.log('img=', pokemon.sprites.other["official-artwork"].front_default)
+    // const currImage = pokemon.sprites.other['official-artwork'].front_default
+    console.log(pokemon)
     return (
         <View style={styles.screenWrapper}>
             <View>
-                <Text style={styles.text}>{pokemon.name} 
-                    <Text>{pokemon.id}</Text>
-                </Text>
-                {/* <Image  source={pokemon.sprites.other["official-artwork"].front_default} /> */}
+                
+                {/* <Image  source={pokemon.sprites.other['official-artwork'].front_default}/> */}
             </View>
             <View style={styles.searchWrapper}>
                 <TextInput 
@@ -60,7 +56,16 @@ export default function Pokemon() {
     )
 }
 
-
+const CurrPokemon = ({pokemon}) => {
+    return (
+        <View>
+            <ImageBackground />
+            <Text style={styles.text}>{pokemon.name} 
+                    <Text>{pokemon.id}</Text>
+            </Text>
+        </View>
+    )
+}
 
 const styles = StyleSheet.create({
     screenWrapper: {

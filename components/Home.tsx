@@ -7,7 +7,7 @@ export default function Home({ navigation }) {
     return (
         <ImageBackground source={require('../images/umbreon.jpg')} resizeMode='center' style={styles.bgImg}>
             <View style={styles.titleWrap}>
-                <Text style={styles.title}>Pokemans</Text>
+                <Text style={styles.title}>PokeDex</Text>
             </View>
             <View style={styles.wrapper}>
                 <TouchableOpacity onPress={() => navigation.push("Pokemon")}>
