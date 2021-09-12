@@ -11,13 +11,13 @@ import CurrPokemon from './CurrPokemon';
 
 
 const initialState = {
-    name: 'Pikachu',
-    id: 25,
+    name: '',
+    id: 0,
     stats: [],
     sprites: {
         other: {
             'official-artwork': {
-                front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+                front_default: "place holder"
             }
         }
     }
@@ -26,6 +26,7 @@ const initialState = {
 export default function Pokemon() {
     const [text, setText] = useState('')
     const [pokemon, setPokemon] = useState(initialState)
+    const [error, setError] = useState('')
 
     useEffect(() => {
         axios.get(`https://pokeapi.co/api/v2/pokemon/pikachu`)
@@ -42,10 +43,12 @@ export default function Pokemon() {
             .then(res => {
                 console.log(res.data)
                 setPokemon(res.data)
+                setError('')
                 setText('')
             })
             .catch(err => {
                 console.log(err)
+                setError('Not Found!')
                 setText('')
             })
     }
@@ -56,8 +59,8 @@ export default function Pokemon() {
             <CurrPokemon pokemon={pokemon} />
             <View style={styles.searchWrapper}>
                 <TextInput 
-                    style={styles.textInput} 
-                    placeholder={'enter a pokemon name or ID'} 
+                    style={error ? styles.error : styles.textInput} 
+                    placeholder={error ? `${error}` : 'enter a pokemon name or ID'} 
                     value={text}
                     onChangeText={text => setText(text.toLowerCase())}
                 />
@@ -93,6 +96,16 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderColor: 'black',
         borderWidth: 1,
+        borderRadius: 50,
+    },
+    error: {
+        width: '65%',
+        height: 50,
+        textAlign: 'center',
+        fontSize: 14,
+        backgroundColor: 'white',
+        borderColor: 'red',
+        borderWidth: 5,
         borderRadius: 50,
     },
     button: {
