@@ -5,15 +5,17 @@ import {
     View, 
     StyleSheet, 
     TextInput, 
-    TouchableOpacity } from 'react-native';
+    TouchableOpacity, 
+    Dimensions,
+    } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import CurrPokemon from './CurrPokemon';
-
-
 
 const initialState = {
     name: '',
     id: 0,
     stats: [],
+    abilities: [],
     sprites: {
         other: {
             'official-artwork': {
@@ -52,34 +54,34 @@ export default function Pokemon() {
                 setText('')
             })
     }
-    console.log('pokemon = ', pokemon)
 
-    return (
-        <View style={styles.screenWrapper}>
-            <CurrPokemon pokemon={pokemon} />
-            <View style={styles.searchWrapper}>
-                <TextInput 
-                    style={error ? styles.error : styles.textInput} 
-                    placeholder={error ? `${error}` : 'enter a pokemon name or ID'} 
-                    value={text}
-                    onChangeText={text => setText(text.toLowerCase())}
-                />
-                {text !== '' &&
-                    <TouchableOpacity  onPress={() => fetchPokemon()} style={styles.button}>
-                        <Text style={styles.buttonText}>Go</Text>
-                    </TouchableOpacity>
-                }       
+    return (   
+        <KeyboardAwareScrollView style={{ height: (Dimensions.get('screen').height), backgroundColor: 'green'}}>
+            <View style={styles.screenWrapper}>
+                <CurrPokemon pokemon={pokemon} />
+                <View style={styles.searchWrapper}>
+                    <TextInput 
+                        style={error ? styles.error : styles.textInput} 
+                        placeholder={error ? `${error}` : 'enter a pokemon name or ID'} 
+                        value={text}
+                        onChangeText={text => setText(text.toLowerCase())}
+                    />
+                    {text !== '' &&
+                        <TouchableOpacity  onPress={() => fetchPokemon()} style={styles.button}>
+                            <Text style={styles.buttonText}>Go</Text>
+                        </TouchableOpacity>
+                    }       
+                </View>
             </View>
-        </View>
+        </KeyboardAwareScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     screenWrapper: {
-        flex: 1,
         flexDirection: "column",
         backgroundColor: 'black',
-        justifyContent: 'space-between',
+        justifyContent: 'space-between'
     },
     searchWrapper: {
         flexDirection: 'row',

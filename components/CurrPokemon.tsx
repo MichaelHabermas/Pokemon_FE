@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 
 export default function CurrPokemon({pokemon}) {
     return (
-       
         <View style={styles.currPokemonWrapper}>
             <Image source={{uri: pokemon.sprites.other['official-artwork'].front_default}} style={styles.img}/>
             <View style={styles.info}>
@@ -20,7 +19,7 @@ export default function CurrPokemon({pokemon}) {
                             {stat.stat.name}: {stat.base_stat}
                         </Text>
                     )
-                })}
+                })} 
             </View>
         </View>
     )
@@ -28,7 +27,7 @@ export default function CurrPokemon({pokemon}) {
 
 const styles = StyleSheet.create({
     currPokemonWrapper: {
-        overflow: "scroll",
+        height: (Dimensions.get('screen').height),
         flexDirection: 'column',
         alignItems: 'center',
     },
@@ -59,8 +58,28 @@ const styles = StyleSheet.create({
     },
     stats: {
         color: 'white',
+        width: '90%',
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 50,
+        paddingBottom: 10,
+        borderBottomColor: 'white',
+        borderBottomWidth: 1,
     },
     stat: {
         color: 'white',
+        width: '50%',
+        fontSize: 16,
+        textAlign: 'center',
+        marginTop: 20,
     },
+    abilities: {
+        borderColor: 'white',
+        width: '90%',
+    },
+    ability: {
+        color: 'white',
+    }
 })
