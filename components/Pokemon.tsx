@@ -1,13 +1,31 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Image, ImageBackground } from 'react-native';
+import { 
+    Text, 
+    View, 
+    StyleSheet, 
+    TextInput, 
+    TouchableOpacity } from 'react-native';
+import CurrPokemon from './CurrPokemon';
 
 
+
+const initialState = {
+    name: 'Pikachu',
+    id: 25,
+    stats: [],
+    sprites: {
+        other: {
+            'official-artwork': {
+                front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+            }
+        }
+    }
+}
 
 export default function Pokemon() {
     const [text, setText] = useState('')
-    const [pokemon, setPokemon] = useState({})
-    const [showModal, setShowModal] = useState(false)
+    const [pokemon, setPokemon] = useState(initialState)
 
     useEffect(() => {
         axios.get(`https://pokeapi.co/api/v2/pokemon/pikachu`)
@@ -31,14 +49,11 @@ export default function Pokemon() {
                 setText('')
             })
     }
-    // const currImage = pokemon.sprites.other['official-artwork'].front_default
-    console.log(pokemon)
+    console.log('pokemon = ', pokemon)
+
     return (
         <View style={styles.screenWrapper}>
-            <View>
-                
-                {/* <Image  source={pokemon.sprites.other['official-artwork'].front_default}/> */}
-            </View>
+            <CurrPokemon pokemon={pokemon} />
             <View style={styles.searchWrapper}>
                 <TextInput 
                     style={styles.textInput} 
@@ -56,17 +71,6 @@ export default function Pokemon() {
     )
 }
 
-const CurrPokemon = ({pokemon}) => {
-    return (
-        <View>
-            <ImageBackground />
-            <Text style={styles.text}>{pokemon.name} 
-                    <Text>{pokemon.id}</Text>
-            </Text>
-        </View>
-    )
-}
-
 const styles = StyleSheet.create({
     screenWrapper: {
         flex: 1,
@@ -78,7 +82,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-        marginBottom: 15,
         backgroundColor: '#a88220',
         paddingVertical: 10,
     },
@@ -107,11 +110,4 @@ const styles = StyleSheet.create({
         padding: 10,
         fontSize: 18,
     },
-    text: {
-        color: 'white'
-    },
-    img: {
-        width: 200,
-        height: 300,
-    }
 })
