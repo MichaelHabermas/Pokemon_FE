@@ -21,6 +21,21 @@ export default function CurrPokemon({pokemon}) {
                     )
                 })} 
             </View>
+            <View style={styles.abilitiesWrapper}>
+                <Text style={styles.abilitiesTitle}>Abilities</Text>
+                <View style={styles.abilities}>
+                    {pokemon.abilities.map(ability => {
+                        return (
+                            <Text
+                                key={ability.ability.name}
+                                style={styles.ability}
+                            >
+                                {ability.ability.name}
+                            </Text>
+                        )
+                    })}
+                </View>
+            </View>
         </View>
     )
 }
@@ -71,15 +86,30 @@ const styles = StyleSheet.create({
     stat: {
         color: 'white',
         width: '50%',
-        fontSize: 16,
+        fontSize: 18,
         textAlign: 'center',
         marginTop: 20,
     },
-    abilities: {
+    abilitiesWrapper: {
+        marginTop: 20,
         borderColor: 'white',
         width: '90%',
+        alignItems: 'center',
+    },
+    abilitiesTitle: {
+        fontSize: 24,
+        color: 'white',
+        textAlign: 'center',
+        marginBottom: 10,
+    },
+    abilities: {
+        width: '100%',
+        flexDirection: 'row',
     },
     ability: {
+        fontSize: 18,
         color: 'white',
+        width: '50%',
+        textAlign: 'center',
     }
 })

@@ -56,7 +56,7 @@ export default function Pokemon() {
     }
 
     return (   
-        <KeyboardAwareScrollView style={{ height: (Dimensions.get('screen').height), backgroundColor: 'green'}}>
+        <KeyboardAwareScrollView style={{ height: (Dimensions.get('screen').height)}}>
             <View style={styles.screenWrapper}>
                 <CurrPokemon pokemon={pokemon} />
                 <View style={styles.searchWrapper}>
